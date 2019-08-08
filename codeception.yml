@@ -8,3 +8,8 @@ actor_suffix: Tester
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+gherkin:
+  contexts:
+    default: 
+      - AcceptanceTester
+      - Step\Acceptance\TabelaFipe

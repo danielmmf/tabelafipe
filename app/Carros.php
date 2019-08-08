@@ -57,7 +57,7 @@ class Carros
         }
     }
 
-    public function getModelId()
+    public function getPropertyModel()
     {
         $file_models = file_get_contents('http://fipeapi.appspot.com/api/1/1/veiculos/'.$this->getBrandId().'.json');
 
@@ -68,7 +68,19 @@ class Carros
 
         foreach ($modelos as $modelo) {
             if(strtolower($modelo->name) == strtolower($this->getModel()))
-                return $modelo->key;
+                return $modelo;
         }
+    }
+
+    public function get_key(){
+        $file_veiculos = file_get_contents('http://fipeapi.appspot.com/api/1/carros/veiculo/'.$this->getBrandId().'/'.$this->getPropertyModel()->id.'.json');
+
+        if(!file_exists('public/veiculo.'.$this->getBrandId().'.json'))
+            file_put_contents('public/veiculo.'.$this->getBrandId().'.json', $file_veiculos);
+
+        $veiculo = json_decode(file_get_contents('public/veiculo.'.$this->getBrandId().'.json'));
+
+        $key = $this->getBrandId().'/'.$this->getPropertyModel()->id.'/'.$veiculo[0]->key;
+        return $key;
     }
 }
