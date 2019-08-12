@@ -1,5 +1,30 @@
 module.exports = function(app) {
 
+    function print_console(){
+
+    }
+    app.get('/sinesp/:placa', function(req, res) {
+
+
+        var placa = req.params.placa;
+
+        var fipeClient = new app.client.FipeClient();
+        console.log('busca o modelo do carro na sinesp');
+
+        var placa = require('sinesp-api');
+        let dados = placa.search(placa);
+        var retorno = [];
+        console.log(dados);
+
+        dados.then(function(result) {
+            //console.log(result.modelo) // "Some User token"
+            var modelo = result.modelo;
+            retorno = result;
+            print_console(modelo);
+           // res.status(200).json(result);
+        });
+    });
+
 
     app.get('/placa/:tipoVeiculo', function(req, res) {
 
@@ -10,7 +35,7 @@ module.exports = function(app) {
         console.log('dadsadadaddadasd');
 
         var placa = require('sinesp-api');
-        let dados = placa.search('DWS2559');
+        let dados = placa.search('DWS2579');
         var retorno = [];
         //console.log(dados);
 
@@ -99,6 +124,8 @@ module.exports = function(app) {
 
 
     });
+
+
 
 
     /**
